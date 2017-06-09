@@ -3,7 +3,7 @@ resource "aws_instance" "bastion" {
     instance_type = "t2.small"
     count = "1"
     associate_public_ip_address = "true"
-    key_name = "foo"
+    key_name = "terraform-key"
     subnet_id = "${aws_subnet.a.id}"
     vpc_security_group_ids = [
       "${aws_security_group.bastion.id}"
@@ -15,7 +15,7 @@ resource "aws_instance" "bastion" {
 
     connection {
       user = "ubuntu"
-      private_key = "${file("~/.ssh/foo")}"
+      private_key = "${file("~/.ssh/terraform-key.pem")}"
       agent = false
     }
 
