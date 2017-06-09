@@ -3,7 +3,7 @@ resource "aws_instance" "swarm-manager" {
     instance_type = "t2.small"
     count = "${var.cluster_manager_count}"
     associate_public_ip_address = "true"
-    key_name = "foo"
+    key_name = "terraform-key"
     subnet_id = "${aws_subnet.a.id}"
     vpc_security_group_ids      = [
       "${aws_security_group.swarm.id}"
@@ -15,7 +15,7 @@ resource "aws_instance" "swarm-manager" {
 
     connection {
       user = "ubuntu"
-      private_key = "${file("~/.ssh/foo")}"
+      private_key = "${file("~/.ssh/terraform-key.pem")}"
       agent = false
     }
 
@@ -41,7 +41,7 @@ resource "aws_instance" "swarm-node" {
     instance_type = "t2.small"
     count = "${var.cluster_node_count}"
     associate_public_ip_address = "true"
-    key_name = "foo"
+    key_name = "terraform-key"
     subnet_id = "${aws_subnet.a.id}"
     vpc_security_group_ids = [
       "${aws_security_group.swarm.id}"
@@ -53,7 +53,7 @@ resource "aws_instance" "swarm-node" {
 
     connection {
       user = "ubuntu"
-      private_key = "${file("~/.ssh/foo")}"
+      private_key = "${file("~/.ssh/terraform-key.pem")}"
       agent = false
     }
 
@@ -83,7 +83,7 @@ resource "null_resource" "cluster" {
   connection {
     host = "${aws_instance.bastion.public_dns}"
     user = "ubuntu"
-    private_key = "${file("~/.ssh/deis")}"
+    private_key = "${file("~/.ssh/terraform-key.pem")}"
     agent = false
   }
 
