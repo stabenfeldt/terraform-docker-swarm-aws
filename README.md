@@ -56,6 +56,4 @@ swarm_managers = [
     ]
 ```
 
-Then you should be able to curl the address found in bastion_host:
-
-### That does not work :-/
+See if Nginx has started. Run curl agains one of the swarm nodes: `curl -vvs ec2-34-212-80-220.us-west-2.compute.amazonaws.com | head -n 10`
