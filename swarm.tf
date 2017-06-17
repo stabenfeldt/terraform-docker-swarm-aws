@@ -1,5 +1,5 @@
 resource "aws_instance" "swarm-manager" {
-    ami = "ami-1a6cc07a"
+    ami = "ami-68959e11"
     instance_type = "t2.small"
     count = "${var.cluster_manager_count}"
     associate_public_ip_address = "true"
@@ -37,7 +37,7 @@ resource "aws_instance" "swarm-manager" {
 }
 
 resource "aws_instance" "swarm-node" {
-    ami = "ami-1a6cc07a"
+    ami = "ami-68959e11"
     instance_type = "t2.small"
     count = "${var.cluster_node_count}"
     associate_public_ip_address = "true"

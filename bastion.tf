@@ -1,5 +1,5 @@
 resource "aws_instance" "bastion" {
-    ami = "ami-1a6cc07a"
+    ami = "ami-68959e11"
     instance_type = "t2.small"
     count = "1"
     associate_public_ip_address = "true"
