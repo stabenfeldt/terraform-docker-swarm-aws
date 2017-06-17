@@ -36,24 +36,20 @@ Be sure to change the subnet_id and security_group_ids attributes to the outputt
 #### Apply the plan
 ```bash
   $ terraform apply
+
+  [cut..]
+  bastion_host = ec2-52-39-228-49.us-west-2.compute.amazonaws.com
+  sg_bastion = sg-3dd4ef46
+  sg_swarm = sg-4cc9f237
+  swarm_managers = [
+        ec2-35-160-86-132.us-west-2.compute.amazonaws.com
+      ]
+      swarm_nodes = [
+        ec2-52-43-173-34.us-west-2.compute.amazonaws.com,
+        ec2-52-27-207-18.us-west-2.compute.amazonaws.com,
+        ec2-34-211-196-94.us-west-2.compute.amazonaws.com
+      ]
 ```
-
-#### Output
-
-```bash
-Outputs:
-
-bastion_host = ec2-52-39-228-49.us-west-2.compute.amazonaws.com
-sg_bastion = sg-3dd4ef46
-sg_swarm = sg-4cc9f237
-swarm_managers = [
-      ec2-35-160-86-132.us-west-2.compute.amazonaws.com
-    ]
-    swarm_nodes = [
-      ec2-52-43-173-34.us-west-2.compute.amazonaws.com,
-      ec2-52-27-207-18.us-west-2.compute.amazonaws.com,
-      ec2-34-211-196-94.us-west-2.compute.amazonaws.com
-    ]
-```
+Run `terraform output` to see this again.
 
 See if Nginx has started. Run curl agains one of the swarm nodes: `curl -vvs ec2-34-212-80-220.us-west-2.compute.amazonaws.com | head -n 10`
