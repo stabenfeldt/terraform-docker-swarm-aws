@@ -57,6 +57,5 @@ swarm_managers = [
     ]
 ```
 
-Then you should be able to curl the address found in bastion_host:
+Then you should be able to curl one of the addresses found in swarm_nodes.
 
-### That does not work :-/
