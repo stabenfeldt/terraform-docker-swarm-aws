@@ -8,41 +8,37 @@ For more information, read the tutorial: http://ngerakines.me/2016/11/20/terrafo
 
 Follow these steps to get it up and running:
 
-* Create a key pair
+1. Create a key pair
   Log into your Amazone EC2 console.
-  Then click NETWORK & SECURITY, Key Pairs, [Create Key Pairs (in eu-west-2)](https://eu-west-2.console.aws.amazon.com/ec2/v2/home?region=eu-west-2#KeyPairs:sort=keyName)
+  Then click NETWORK & SECURITY, Key Pairs, [Create Key Pairs (in us-west-2)](https://us-west-2.console.aws.amazon.com/ec2/v2/home?region=us-west-2#KeyPairs:sort=keyName)
 
-# Update docker.json with new subnet_id
+2. Create the AMI using the packer executable
 
-  Run `terraform output`
-  take the value form *vpc_subnet_a* and put it in *subnet_id* in docker.json
+```bash
+  $ packer build docker.json
+```
 
-* Create the AMI using the packer executable
+3. Update config with new AMI
+Update the ami attribute found in docker.tf and swarm.tf.
 
-  ```bash
-    $ packer build docker.json
-  ```
 
-* Update config with new AMI
-Update the ami attribute found in bastion.tf and swarm.tf.
-
-## subnet_id and security_group_ids
+4. subnet_id and security_group_ids
 Run `terraform output`
 Be sure to change the subnet_id and security_group_ids attributes to the outputted vpc_subnet_a and sg_bastion values.
 
 
-* Check what it's planning to do
+3. Check what it's planning to do
 
 ```bash
   $ terraform plan
 ```
 
-* Apply the plan
+4. Apply the plan
 ```bash
   $ terraform apply
 ```
 
-* Output
+5. Output
 
 
 ```bash
