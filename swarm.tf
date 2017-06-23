@@ -1,9 +1,9 @@
 resource "aws_instance" "swarm-manager" {
-    ami = "ami-68959e11"
+    ami = "ami-a81402cc"
     instance_type = "t2.small"
     count = "${var.cluster_manager_count}"
     associate_public_ip_address = "true"
-    key_name = "terraform-key"
+    key_name = "terraform"
     subnet_id = "${aws_subnet.a.id}"
     vpc_security_group_ids      = [
       "${aws_security_group.swarm.id}"
@@ -15,7 +15,7 @@ resource "aws_instance" "swarm-manager" {
 
     connection {
       user = "ubuntu"
-      private_key = "${file("~/.ssh/terraform-key.pem")}"
+      private_key = "${file("~/.ssh/terraform-eu-west-2.pem")}"
       agent = false
     }
 
@@ -37,11 +37,11 @@ resource "aws_instance" "swarm-manager" {
 }
 
 resource "aws_instance" "swarm-node" {
-    ami = "ami-68959e11"
+    ami = "ami-a81402cc"
     instance_type = "t2.small"
     count = "${var.cluster_node_count}"
     associate_public_ip_address = "true"
-    key_name = "terraform-key"
+    key_name = "terraform"
     subnet_id = "${aws_subnet.a.id}"
     vpc_security_group_ids = [
       "${aws_security_group.swarm.id}"
@@ -53,7 +53,7 @@ resource "aws_instance" "swarm-node" {
 
     connection {
       user = "ubuntu"
-      private_key = "${file("~/.ssh/terraform-key.pem")}"
+      private_key = "${file("~/.ssh/terraform-eu-west-2.pem")}"
       agent = false
     }
 
@@ -83,15 +83,16 @@ resource "null_resource" "cluster" {
   connection {
     host = "${aws_instance.bastion.public_dns}"
     user = "ubuntu"
-    private_key = "${file("~/.ssh/terraform-key.pem")}"
+    private_key = "${file("~/.ssh/terraform-eu-west-2.pem")}"
     agent = false
   }
 
   provisioner "remote-exec" {
     # Bootstrap script called with private_ip of each node in the clutser
     inline = [
-      "docker -H ${element(aws_instance.swarm-manager.*.private_ip, 0)}:2375 network create --driver overlay appnet",
-      "docker -H ${element(aws_instance.swarm-manager.*.private_ip, 0)}:2375 service create --name nginx --publish 80:80 --network appnet nginx"
+      "docker --version",
+      "docker -H ${element(aws_instance.swarm-manager.*.private_ip, 0)}:2375 network create --driver overlay proxy",
+      "docker -H ${element(aws_instance.swarm-manager.*.private_ip, 0)}:2375 stack deploy -c docker-compose-swarm.yml mesh"
     ]
   }
 }

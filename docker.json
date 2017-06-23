@@ -5,23 +5,23 @@
       "ami_virtualization_type": "hvm",
       "associate_public_ip_address": "true",
       "instance_type": "t2.small",
-      "region": "us-west-2",
+      "region": "eu-west-2",
       "source_ami_filter": {
         "filters": {
-          "name": "*ubuntu-yakkety-16.10-amd64-server-*",
+          "name": "*ubuntu-zesty-17.04-amd64-server-*",
           "root-device-type": "ebs",
           "virtualization-type": "hvm"
         },
         "most_recent": true
       },
       "ssh_username": "ubuntu",
-      "subnet_id": "subnet-3ae2d25d",
+      "subnet_id": "subnet-40d3663b",
       "tags": {
         "OS_Version": "Ubuntu",
-        "Release": "16.10"
+        "Release": "17.04"
       },
       "type": "amazon-ebs",
-      "security_group_ids": ["sg-3dd4ef46"]
+      "security_group_ids": ["sg-74a7d81d"]
     }
   ],
   "post-processors": null,
@@ -34,12 +34,12 @@
     {
       "execute_command": "{{ .Vars }} sudo -E sh '{{ .Path }}'",
       "inline": [
-        "apt-get install -y aptitude",
-        "aptitude -y update",
-        "aptitude install -y docker docker-compose unzip",
-        "mv /tmp/docker.options /etc/default/docker",
-        "systemctl enable docker.service",
-        "usermod -aG docker ubuntu"
+        "apt-get install apt-transport-https ca-certificates curl software-properties-common",
+        "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -",
+        "add-apt-repository deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable",
+        "apt-get update",
+        "apt install -y docker.io",
+        "service docker start"
       ],
       "type": "shell"
     }

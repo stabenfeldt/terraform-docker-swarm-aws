@@ -1,9 +1,9 @@
 resource "aws_instance" "bastion" {
-    ami = "ami-68959e11"
+    ami = "ami-a81402cc"
     instance_type = "t2.small"
     count = "1"
     associate_public_ip_address = "true"
-    key_name = "terraform-key"
+    key_name = "terraform"
     subnet_id = "${aws_subnet.a.id}"
     vpc_security_group_ids = [
       "${aws_security_group.bastion.id}"
@@ -15,7 +15,7 @@ resource "aws_instance" "bastion" {
 
     connection {
       user = "ubuntu"
-      private_key = "${file("~/.ssh/terraform-key.pem")}"
+      private_key = "${file("~/.ssh/terraform-eu-west-2.pem")}"
       agent = false
     }
 
