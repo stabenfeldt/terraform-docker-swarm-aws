@@ -10,7 +10,7 @@ Follow these steps to get it up and running:
 
 * Create a key pair
   Log into your Amazone EC2 console.
-  Then click NETWORK & SECURITY, Key Pairs, [Create Key Pairs (in eu-west-2)](https://eu-west-2.console.aws.amazon.com/ec2/v2/home?region=eu-west-2#KeyPairs:sort=keyName)
+  Then click NETWORK & SECURITY, Key Pairs, [Create Key Pairs (in ey-west-2)](https://us-west-2.console.aws.amazon.com/ec2/v2/home?region=eu-west-2#KeyPairs:sort=keyName)
 
 * Create the AMI using the packer executable
 
@@ -57,6 +57,5 @@ swarm_managers = [
     ]
 ```
 
-Then you should be able to curl the address found in bastion_host:
+Then you should be able to curl one of the addresses found in swarm_nodes.
 
-### That does not work :-/
