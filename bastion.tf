@@ -1,5 +1,5 @@
 resource "aws_instance" "bastion" {
-    ami = "ami-a81402cc"
+    ami = "ami-7f6e7419"
     instance_type = "t2.small"
     count = "1"
     associate_public_ip_address = "true"
@@ -15,7 +15,7 @@ resource "aws_instance" "bastion" {
 
     connection {
       user = "ubuntu"
-      private_key = "${file("~/.ssh/terraform-eu-west-2.pem")}"
+      private_key = "${file("~/.ssh/terraform-eu-west-1.pem")}"
       agent = false
     }
 

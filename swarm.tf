@@ -1,5 +1,5 @@
 resource "aws_instance" "swarm-manager" {
-    ami = "ami-a81402cc"
+    ami = "ami-7f6e7419"
     instance_type = "t2.small"
     count = "${var.cluster_manager_count}"
     associate_public_ip_address = "true"
@@ -15,7 +15,7 @@ resource "aws_instance" "swarm-manager" {
 
     connection {
       user = "ubuntu"
-      private_key = "${file("~/.ssh/terraform-eu-west-2.pem")}"
+      private_key = "${file("~/.ssh/terraform-eu-west-1.pem")}"
       agent = false
     }
 
@@ -37,7 +37,7 @@ resource "aws_instance" "swarm-manager" {
 }
 
 resource "aws_instance" "swarm-node" {
-    ami = "ami-a81402cc"
+    ami = "ami-7f6e7419"
     instance_type = "t2.small"
     count = "${var.cluster_node_count}"
     associate_public_ip_address = "true"
@@ -53,7 +53,7 @@ resource "aws_instance" "swarm-node" {
 
     connection {
       user = "ubuntu"
-      private_key = "${file("~/.ssh/terraform-eu-west-2.pem")}"
+      private_key = "${file("~/.ssh/terraform-eu-west-1.pem")}"
       agent = false
     }
 
@@ -83,7 +83,7 @@ resource "null_resource" "cluster" {
   connection {
     host = "${aws_instance.bastion.public_dns}"
     user = "ubuntu"
-    private_key = "${file("~/.ssh/terraform-eu-west-2.pem")}"
+    private_key = "${file("~/.ssh/terraform-eu-west-1.pem")}"
     agent = false
   }
 
