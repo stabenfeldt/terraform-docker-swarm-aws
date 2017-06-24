@@ -17,6 +17,7 @@ resource "aws_network_acl" "network" {
   subnet_ids = [
     "${aws_subnet.a.id}",
     "${aws_subnet.b.id}",
+    "${aws_subnet.c.id}"
   ]
 
   ingress {
@@ -69,6 +70,10 @@ resource "aws_route_table_association" "b" {
   subnet_id = "${aws_subnet.b.id}"
 }
 
+resource "aws_route_table_association" "c" {
+  route_table_id = "${aws_route_table.main.id}"
+  subnet_id = "${aws_subnet.c.id}"
+}
 
 resource "aws_subnet" "a" {
   vpc_id = "${aws_vpc.vpc.id}"
@@ -96,6 +101,18 @@ resource "aws_subnet" "b" {
   }
 }
 
+resource "aws_subnet" "c" {
+  vpc_id = "${aws_vpc.vpc.id}"
+  cidr_block = "${cidrsubnet(aws_vpc.vpc.cidr_block,8,3)}"
+  availability_zone = "${var.aws_region}c"
+  map_public_ip_on_launch = false
+
+  tags {
+    Name = "${var.vpc_key}-c"
+    VPC = "${var.vpc_key}"
+    Terraform = "Terraform"
+  }
+}
 
 resource "aws_vpc" "vpc" {
   cidr_block           = "10.25.0.0/16"
@@ -126,4 +143,7 @@ output "vpc_subnet_a" {
 }
 output "vpc_subnet_b" {
   value = "${aws_subnet.b.id}"
+}
+output "vpc_subnet_c" {
+  value = "${aws_subnet.c.id}"
 }

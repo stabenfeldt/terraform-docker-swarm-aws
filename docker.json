@@ -15,13 +15,13 @@
         "most_recent": true
       },
       "ssh_username": "ubuntu",
-      "subnet_id": "subnet-44db6e3f",
+      "subnet_id": "subnet-40d3663b",
       "tags": {
         "OS_Version": "Ubuntu",
         "Release": "17.04"
       },
       "type": "amazon-ebs",
-      "security_group_ids": ["sg-fb98e792"]
+      "security_group_ids": ["sg-74a7d81d"]
     }
   ],
   "post-processors": null,
