@@ -3,7 +3,7 @@ resource "aws_instance" "bastion" {
     instance_type = "t2.small"
     count = "1"
     associate_public_ip_address = "true"
-    key_name = "terraform"
+    key_name = "terraform-eu-west-2"
     subnet_id = "${aws_subnet.a.id}"
     vpc_security_group_ids = [
       "${aws_security_group.bastion.id}"

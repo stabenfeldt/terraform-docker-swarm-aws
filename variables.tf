@@ -15,5 +15,5 @@ variable "cluster_manager_count" {
 
 variable "cluster_node_count" {
     description = "Number of node instances for the cluster."
-    default = 3
+    default = 1
 }
